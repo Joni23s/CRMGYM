@@ -1,47 +1,63 @@
+import dao.ClientDao;
 import model.Client;
-import util.DataBaseConnection;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
 
-        // Lista para almacenar los clientes obtenidos de la BD
-        List<Client> clients = new ArrayList<>();
+        ClientDao clientDao = new ClientDao();
 
-        // Intentamos la conexión y la consulta
-        try (Connection connection = DataBaseConnection.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM client")) {
-
-            // Recorremos el resultado y creamos objetos Client
-            while (resultSet.next()) {
-                Client client = new Client(
-                        resultSet.getInt("documentId"),
-                        resultSet.getString("name"),
-                        resultSet.getString("lastName"),
-                        resultSet.getString("email"),
-                        resultSet.getLong("phoneNumber"),
-                        resultSet.getBoolean("isActive")
-                );
-                clients.add(client); // Agregamos a la lista
-            }
-
-        } catch (SQLException e) {
-            System.out.println("❌ Error al obtener clientes: " + e.getMessage());
+        // 1. Crear un nuevo cliente
+        Client newClient = new Client(13034567, "Santi", "Baj", "baj.santi@example.com", 2634890545L);
+        int addedId = clientDao.addClient(newClient);
+        if (addedId != -1) {
+            System.out.println("Cliente agregado con éxito: \n" + newClient);
+        } else {
+            System.out.println("Error al agregar el cliente.");
         }
 
-        // Mostramos los clientes en la consola
-        if (clients.isEmpty()) {
-            System.out.println("⚠ No hay clientes en la base de datos.");
+        // 2. Listar todos los clientes
+        List<Client> clients = clientDao.getAllClients();
+        System.out.println("\nLista de clientes:");
+        for (Client client : clients) {
+            System.out.println(client);
+        }
+
+        // 3. Buscar un cliente por ID
+        int searchId = 13034567;
+        Client foundClient = clientDao.findClientById(searchId);
+        if (foundClient != null) {
+            System.out.println("\nCliente encontrado: \n" + foundClient);
         } else {
-            System.out.println("✅ Lista de Clientes:");
-            clients.forEach(System.out::println);
+            System.out.println("\nCliente con ID " + searchId + " no encontrado.");
+        }
+
+        // 4. Actualizar un cliente
+        if (foundClient != null) {
+            foundClient.setEmail("nuevo.email@example.com");
+            boolean updated = clientDao.updateClient(foundClient);
+            if (updated) {
+                System.out.println("\nCliente actualizado: \n" + clientDao.findClientById(13034567));
+            } else {
+                System.out.println("\nError al actualizar el cliente.");
+            }
+        }
+
+        // 5. Eliminar un cliente
+        boolean deleted = clientDao.deleteClient(13034567);
+        if (deleted) {
+            System.out.println("\nCliente eliminado correctamente.");
+        } else {
+            System.out.println("\nError al eliminar el cliente.");
+        }
+
+        // 6. Verificar que el cliente ya no existe
+        Client deletedClient = clientDao.findClientById(13034567);
+        if (deletedClient == null) {
+            System.out.println("\nEl cliente ya no existe en la base de datos.");
+        } else {
+            System.out.println("\nEl cliente todavía está en la base de datos: \n" + deletedClient);
         }
     }
     }

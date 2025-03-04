@@ -106,16 +106,16 @@ public class Client {
     @Override
     public String toString() {
         return String.format("""
-            ┌────────────────────────────────┐
-            │         Datos del Cliente      │
-            ├────────────────────────────────┤
-            │ DNI:        %-18d │
-            │ Nombre:     %-18s │
-            │ Apellido:   %-18s │
-            │ Email:      %-18s │
-            │ Celular:    %-18d │
-            │ Estado:     %-18s │
-            └────────────────────────────────┘
+            ┌────────────────────────────────────┐
+            │           Datos del Cliente        │
+            ├────────────────────────────────────┤
+            │ DNI:        %-22d │
+            │ Nombre:     %-22s │
+            │ Apellido:   %-22s │
+            │ Email:      %-22s │
+            │ Celular:    %-22d │
+            │ Estado:     %-22s │
+            └────────────────────────────────────┘
             """,
                 documentId, name, lastName, email, phoneNumber, isActive ? "Activo" : "Inactivo"
         );
