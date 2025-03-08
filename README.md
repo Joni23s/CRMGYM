@@ -1,4 +1,4 @@
-# CRMGYM - Sistema de Gestión para Gimnasios 🏋️‍♂️
+# CRMGYM - Sistema de Gestión para Gimnasios 🏋️‍♂️ (Fase 1)
 
 **CRMGYM** es un sistema desarrollado en **Java** para modernizar la gestión de gimnasios, reemplazando métodos tradicionales como cuadernos, hojas de cálculo y WhatsApp por una solución centralizada e intuitiva. Este proyecto está diseñado en **tres fases incrementales**, y actualmente se encuentra en la **Fase 1**, que utiliza **JDBC** y **MySQL** para la gestión básica de clientes.
 
