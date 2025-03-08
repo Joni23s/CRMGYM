@@ -111,17 +111,18 @@ Si tienes preguntas, sugerencias o feedback, no dudes en contactarme:
 
 ### Notas adicionales:
 - Aqui agregare el enlace a las futuras fases del proyecto que manejaran otras tecnologías, a saber:
-Fase 1.b: Hibernate
+
+* Fase 1.b: Hibernate
 Ampliación de clases, nuevas funcionalidades
 
-Fase 2: Spring Boot + API REST
+* Fase 2: Spring Boot + API REST
 Integración de pagos (posible integración con Mercado Pago).
 
 Ampliación de funcionalidades con una API RESTful.
 
 Implementación de JPA (Hibernate) para una mejor gestión de la base de datos.
 
-Fase 3: Java Swing
+* Fase 3: Java Swing
 Desarrollo de una interfaz gráfica de escritorio para administradores.
 
 Mejora de la usabilidad y experiencia del usuario.
