@@ -55,7 +55,7 @@ public class ClientService {
 
         System.out.println("Ingrese un '-' para NO modificar un campo");
 
-        client.setDocumentId(clientValidation.isDocumentIdDuplicated("Nuevo DNI: ", client.getDocumentId()));
+        client.setDocumentId(clientValidation.isDocumentIdDuplicated("Nuevo DNI: ", client));
         client.setName(clientValidation.getStringInput("Nombre: ", client.getName()));
         client.setLastName(clientValidation.getStringInput("Apellido: ", client.getLastName()));
         client.setEmail(clientValidation.getEmailInput("Email: ", client.getEmail()));

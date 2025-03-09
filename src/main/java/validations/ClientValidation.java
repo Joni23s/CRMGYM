@@ -25,12 +25,12 @@ public class ClientValidation {
         }
     }
 
-    public int isDocumentIdDuplicated(String message, int documentId) {
+    public int isDocumentIdDuplicated(String message, Client client) {
         while (true) {
-            int checkedId = getIntInput(message, documentId);
+            int checkedId = getIntInput(message, client.getDocumentId());
 
             Client clientExists = clientDao.findClientById(checkedId);
-            if (clientExists == null) {
+            if (clientExists == null || (clientExists.getDocumentId() == client.getDocumentId())) {
                 return checkedId;
             }
             System.out.println("❌ Ya existe un cliente con DNI: " + checkedId);
