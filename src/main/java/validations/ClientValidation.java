@@ -1,14 +1,14 @@
 package validations;
 
+import dao.ClientDaoImpl;
 import dao.ClientDao;
-import dao.IClientDao;
 import model.Client;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class ClientValidation {
-    private final IClientDao clientDao = new ClientDao();
+    private final ClientDao clientDao = new ClientDaoImpl();
     private final Scanner console = new Scanner(System.in);
     private final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
 

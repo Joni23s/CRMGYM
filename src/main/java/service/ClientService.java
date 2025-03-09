@@ -1,12 +1,12 @@
 package service;
 
+import dao.ClientDaoImpl;
 import dao.ClientDao;
-import dao.IClientDao;
 import model.Client;
 import validations.ClientValidation;
 
 public class ClientService {
-    private final IClientDao clientDao = new ClientDao();
+    private final ClientDao clientDao = new ClientDaoImpl();
     private final ClientValidation clientValidation = new ClientValidation();
 
     public ClientService() {}
