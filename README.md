@@ -67,7 +67,7 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu entorno local:
 
 La carpeta `script_initialized_db` contiene el script SQL utilizado para inicializar la base de datos. Este script crea las tablas necesarias, las relaciones entre ellas y los datos iniciales requeridos para que la aplicación funcione correctamente.
 
-### Cómo Usarlo
+| Cómo Usarlo
 
 1. Ubica el script SQL dentro de la carpeta `script_initialized_db`.
 2. Ejecuta el script en tu cliente SQL preferido o en la terminal, conectado a tu base de datos.
