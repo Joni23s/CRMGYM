@@ -8,21 +8,15 @@ import java.util.Objects;
  * This class contains personal information about the client, such as their ID, name, last name, email, phone number, and status (active/inactive).
  */
 public class Client {
-    private int documentId; // DNI del cliente | Client ID
-    private String name; // Nombre del cliente | Client name
-    private String lastName; // Apellido del cliente | Client last name
-    private String email; // Email del cliente | Client email
-    private long phoneNumber; // Número de teléfono del cliente | Client phone number
-    private boolean isActive; // Estado del cliente (activo/inactivo) | Client status (active/inactive)
+    private int documentId;
+    private String name;
+    private String lastName;
+    private String email;
+    private long phoneNumber;
+    private boolean isActive;
 
-    // Constructor por defecto. Crea un cliente con estado activo por defecto.
-    // Default constructor. Creates a client with active status by default.
-    public Client() {
-        this.isActive = true;
-    }
+    public Client() { this.isActive = true; }
 
-    // Constructor que inicializa solo el DNI del cliente. El estado se establece como activo por defecto.
-    // Constructor that initializes only the client ID. The status is set to active by default.
     public Client(int documentId) {
         this.documentId = documentId;
         this.isActive = true;
@@ -106,16 +100,16 @@ public class Client {
     @Override
     public String toString() {
         return String.format("""
-            ┌────────────────────────────────────┐
-            │           Datos del Cliente        │
-            ├────────────────────────────────────┤
-            │ DNI:        %-22d │
-            │ Nombre:     %-22s │
-            │ Apellido:   %-22s │
-            │ Email:      %-22s │
-            │ Celular:    %-22d │
-            │ Estado:     %-22s │
-            └────────────────────────────────────┘
+            ┌────────────────────────────────────────────┐
+            │               Datos del Cliente            │
+            ├────────────────────────────────────────────┤
+            │ DNI:        %-30d │
+            │ Nombre:     %-30s │
+            │ Apellido:   %-30s │
+            │ Email:      %-30s │
+            │ Celular:    %-30d │
+            │ Estado:     %-30s │
+            └────────────────────────────────────────────┘
             """,
                 documentId, name, lastName, email, phoneNumber, isActive ? "Activo" : "Inactivo"
         );

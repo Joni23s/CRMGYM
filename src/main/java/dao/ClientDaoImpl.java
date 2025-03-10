@@ -2,6 +2,7 @@ package dao;
 
 import model.Client;
 
+import java.lang.management.ManagementFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +19,7 @@ import static util.DataBaseConnection.getConnection;
  */
 public class ClientDaoImpl implements ClientDao {
     private static final Logger LOGGER = Logger.getLogger(ClientDaoImpl.class.getName());
+    private static final boolean DEBUG_MODE = isDebugging();
 
     @Override
     public List<Client> getAllClients() {
@@ -31,10 +33,11 @@ public class ClientDaoImpl implements ClientDao {
             while (rs.next()) {
                 clients.add(mapResultSetToClient(rs));
             }
-            LOGGER.log(Level.INFO, "Se listaron {0} clientes exitosamente.", clients.size());
-
+            if (DEBUG_MODE) {
+                LOGGER.log(Level.INFO, "Se listaron {0} clientes exitosamente.", clients.size());
+            }
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Error al listar clientes", e);
+                LOGGER.log(Level.SEVERE, "Error al listar clientes", e);
         }
         return clients;
     }
@@ -49,11 +52,15 @@ public class ClientDaoImpl implements ClientDao {
             ps.setInt(1, documentId);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    LOGGER.log(Level.INFO, "Cliente con DNI {0} encontrado exitosamente.", documentId);
+                    if (DEBUG_MODE) {
+                        LOGGER.log(Level.INFO, "Cliente con DNI {0} encontrado exitosamente.", documentId);
+                    }
                     return mapResultSetToClient(rs);
 
                 } else {
-                    LOGGER.log(Level.WARNING, "Cliente con DNI {0} no encontrado.", documentId);
+                    if (DEBUG_MODE) {
+                        LOGGER.log(Level.WARNING, "Cliente con DNI {0} no encontrado.", documentId);
+                    }
                 }
             }
 
@@ -76,11 +83,15 @@ public class ClientDaoImpl implements ClientDao {
             int affectedRows = ps.executeUpdate();
 
             if (affectedRows > 0) {
-                LOGGER.log(Level.INFO, "Cliente con DNI {0} agregado exitosamente.", client.getDocumentId());
+                if (DEBUG_MODE) {
+                    LOGGER.log(Level.INFO, "Cliente con DNI {0} agregado exitosamente.", client.getDocumentId());
+                }
                 return client.getDocumentId();
 
             } else {
-                LOGGER.log(Level.WARNING, "No se pudo agregar el cliente con DNI {0}.", client.getDocumentId());
+                if (DEBUG_MODE) {
+                    LOGGER.log(Level.WARNING, "No se pudo agregar el cliente con DNI {0}.", client.getDocumentId());
+                }
             }
 
         } catch (Exception e) {
@@ -104,11 +115,15 @@ public class ClientDaoImpl implements ClientDao {
             int affectedRows = ps.executeUpdate();
 
             if (affectedRows > 0) {
-                LOGGER.log(Level.INFO, "Cliente con DNI {0} actualizado exitosamente.", client.getDocumentId());
+                if (DEBUG_MODE) {
+                    LOGGER.log(Level.INFO, "Cliente con DNI {0} actualizado exitosamente.", client.getDocumentId());
+                }
                 return true;
 
             } else {
-                LOGGER.log(Level.WARNING, "No se pudo actualizar el cliente con DNI {0}.", client.getDocumentId());
+                if (DEBUG_MODE) {
+                    LOGGER.log(Level.WARNING, "No se pudo actualizar el cliente con DNI {0}.", client.getDocumentId());
+                }
             }
 
         } catch (Exception e) {
@@ -129,13 +144,16 @@ public class ClientDaoImpl implements ClientDao {
             int affectedRows = ps.executeUpdate();
 
             if (affectedRows > 0) {
-                LOGGER.log(Level.INFO, "Cliente con DNI {0} eliminado exitosamente.", documentId);
+                if (DEBUG_MODE) {
+                    LOGGER.log(Level.INFO, "Cliente con DNI {0} eliminado exitosamente.", documentId);
+                }
                 return true;
 
             } else {
-                LOGGER.log(Level.WARNING, "No se pudo eliminar el cliente con DNI {0}.", documentId);
+                if (DEBUG_MODE) {
+                    LOGGER.log(Level.WARNING, "No se pudo eliminar el cliente con DNI {0}.", documentId);
+                }
             }
-
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error al eliminar un cliente. ", e);
         }
@@ -169,5 +187,16 @@ public class ClientDaoImpl implements ClientDao {
         ps.setString(4, client.getEmail());
         ps.setLong(5, client.getPhoneNumber());
         ps.setBoolean(6, client.isActive());
+    }
+
+
+    /** Verifica si el programa se está ejecutando en modo Debug detectando el argumento "-agentlib:jdwp",
+     *que se agrega automáticamente cuando se ejecuta en modo depuración en IntelliJ IDEA.
+     *Esto permite que el programa active comportamientos específicos para el modo Debug.
+     * Checks if the program is running in Debug mode by detecting the "-agentlib:jdwp" argument,
+     * which is automatically added when running in debug mode in IntelliJ IDEA.
+     *This allows the program to enable specific behaviors for Debug mode. */
+    private static boolean isDebugging() {
+        return ManagementFactory.getRuntimeMXBean().getInputArguments().toString().contains("-agentlib:jdwp");
     }
 }
