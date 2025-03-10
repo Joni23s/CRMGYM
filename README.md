@@ -63,9 +63,18 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu entorno local:
    cd CRMGYM
    ```
 
-2. **Configura la base de datos**:
-   - Crea una base de datos en MySQL llamada `crmgym_test`.
-   - Importa el archivo SQL inicial (falta) para crear las tablas necesarias.
+2. **Script de Inicialización de Base de Datos**:
+
+La carpeta `script_initialized_db` contiene el script SQL utilizado para inicializar la base de datos. Este script crea las tablas necesarias, las relaciones entre ellas y los datos iniciales requeridos para que la aplicación funcione correctamente.
+
+### Cómo Usarlo
+
+1. Ubica el script SQL dentro de la carpeta `script_initialized_db`.
+2. Ejecuta el script en tu cliente SQL preferido o en la terminal, conectado a tu base de datos.
+3. El script creará las tablas necesarias e insertará los datos iniciales.
+
+Asegúrate de ajustar el script si tu configuración o entorno de base de datos difiere.
+
 
 3. **Configura las variables de entorno**:
    - Define las variables de entorno `DB_USER` y `DB_PASSWORD` con las credenciales de tu base de datos.
